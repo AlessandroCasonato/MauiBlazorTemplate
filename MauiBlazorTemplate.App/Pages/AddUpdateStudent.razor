@@ -1,0 +1,84 @@
+﻿@page "/add_student"
+@page "/update_student/{StudentId:int}"
+
+@using MauiBlazorTemplate.Core.Models;
+@using MauiBlazorTemplate.Services;
+@inject IStudentService StudentSvc
+
+<h3>Add student</h3>
+
+<div class="form-group">
+    <label>First Name</label>
+    <input @bind="firstName" class="form-control" placeholder="First Name" />
+</div>
+
+<div class="mt-2 form-group">
+    <label>Last Name</label>
+    <input @bind="lastName" class="form-control" placeholder="Last Name" />
+</div>
+
+<div class="mt-2 form-group">
+    <label>Email address</label>
+    <input @bind="email" type="email" class="form-control" placeholder="Email" />
+</div>
+
+<div class="mt-2 form-group">
+    <label>Gender</label>
+    <input @bind="gender" class="form-control" placeholder="Gender" />
+</div>
+<button type="submit" @onclick="AddStudentRecord" class="mt-2 btn btn-primary">Submit</button>
+
+@code {
+    [Parameter]
+    public int StudentId { get; set; }
+    private string firstName, lastName, email, gender;
+
+    private void setGender(string g)
+    {
+        gender = g;
+    }
+
+    protected async override Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        if (StudentId > 0)
+        {
+            var response = await StudentSvc.GetStudentById(StudentId);
+            if (response != null)
+            {
+                firstName = response.FirstName;
+                lastName = response.LastName;
+                email = response.Email;
+                gender = response.Gender;
+            }
+        }
+    }
+
+    private async void AddStudentRecord()
+    {
+        int response = -1;
+        var student = new Core.Models.Student()
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                Gender = gender,
+                Id = StudentId
+            };
+        if (StudentId > 0)
+            response = await StudentSvc.UpdateStudent(student);
+        else
+            response = await StudentSvc.AddStudent(student);
+
+        if(response > 0)
+        {
+            firstName = lastName = gender = email = "";
+            this.StateHasChanged();
+            await App.Current.MainPage.DisplayAlert("Query executed correctly", "Record added correctly", "Ok");
+        }
+        else
+        {
+            await App.Current.MainPage.DisplayAlert("Error", "Error while adding the record", "Shit");
+        }
+    }
+}

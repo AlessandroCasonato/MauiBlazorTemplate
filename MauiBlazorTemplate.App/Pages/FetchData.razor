@@ -1,0 +1,72 @@
+﻿@page "/fetchdata"
+
+@using MauiBlazorTemplate.App.Data
+@using MauiBlazorTemplate.Core.Models;
+@using MauiBlazorTemplate.Services;
+@inject IStudentService StudentSvc
+@inject NavigationManager NavManager
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (students == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in students)
+                {
+                    <tr>
+                        <td>@s.Id</td>
+                        <td>@s.FirstName</td>
+                        <td>@s.LastName</td>
+                        <td>@s.Email</td>
+                        <td>@s.Gender</td>
+                        <td>
+                            <button type="submit" @onclick="(() => EditStudent(s.Id))" class="btn btn-primary">Edit</button>
+                            <button type="submit" @onclick="(() => DeleteStudent(s))" class="btn btn-primary">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<Student> students;
+
+    protected override async Task OnInitializedAsync()
+    {
+        students = await StudentSvc.GetAllStudent();
+    }
+
+    private void EditStudent(int studentId)
+    {
+        NavManager.NavigateTo($"update_student/{studentId}");
+    }
+
+    private async void DeleteStudent(Student student)
+    {
+        var response = await StudentSvc.DeleteStudent(student);
+        if(response > 0)
+        {
+            await OnInitializedAsync();
+            this.StateHasChanged();
+        }
+    }
+}
