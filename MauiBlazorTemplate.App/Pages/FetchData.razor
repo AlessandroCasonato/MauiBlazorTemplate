@@ -3,7 +3,7 @@
 @using MauiBlazorTemplate.App.Data
 @using MauiBlazorTemplate.Core.Models;
 @using MauiBlazorTemplate.Services;
-@inject IStudentService StudentSvc
+@inject ISqliteService<Student> StudentSvc
 @inject NavigationManager NavManager
 
 <h1>Weather forecast</h1>
