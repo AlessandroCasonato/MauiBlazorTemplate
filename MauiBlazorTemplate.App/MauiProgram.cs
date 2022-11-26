@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using MauiBlazorTemplate.App.Data;
 using MauiBlazorTemplate.Services;
 using MauiBlazorTemplate.Core.Models;
 
@@ -25,7 +24,6 @@ public static class MauiProgram
 #endif
 
 		builder.Services.AddSingleton<ISqliteService<Student>, SqliteService<Student>>();
-		builder.Services.AddSingleton<WeatherForecastService>();
 
 		return builder.Build();
 	}
