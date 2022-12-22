@@ -1,4 +1,4 @@
-﻿using MauiBlazorTemplate.Core.Models;
+﻿using MauiBlazorTemplate.Core.BaseModels;
 using SQLite;
 
 namespace MauiBlazorTemplate.Services
@@ -22,29 +22,29 @@ namespace MauiBlazorTemplate.Services
                 await _dbConn.CreateTableAsync<T>();
             }
         }
-        public async Task<int> AddStudent(T student)
+        public async Task<int> AddItem(T item)
         {
-            return await _dbConn.InsertAsync(student);
+            return await _dbConn.InsertAsync(item);
         }
 
-        public async Task<int> DeleteStudent(T student)
+        public async Task<int> DeleteItem(T item)
         {
-            return await _dbConn.DeleteAsync(student);
+            return await _dbConn.DeleteAsync(item);
         }
 
-        public async Task<List<T>> GetAllStudent()
+        public async Task<List<T>> GetAllItems()
         {
             return await _dbConn.Table<T>().ToListAsync();
         }
 
-        public async Task<T> GetStudentById(int id)
+        public async Task<T> GetItemById(int id)
         {
             return await _dbConn.Table<T>().FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<int> UpdateStudent(T student)
+        public async Task<int> UpdateItem(T item)
         {
-            return await _dbConn.UpdateAsync(student);
+            return await _dbConn.UpdateAsync(item);
         }
 
     }

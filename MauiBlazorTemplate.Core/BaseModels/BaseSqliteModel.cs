@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace MauiBlazorTemplate.Core.Models
+namespace MauiBlazorTemplate.Core.BaseModels
 {
     public class BaseSqliteModel
     {

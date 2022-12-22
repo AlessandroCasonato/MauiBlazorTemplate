@@ -1,6 +1,7 @@
-﻿using SQLite;
+﻿using MauiBlazorTemplate.Core.BaseModels;
+using SQLite;
 
-namespace MauiBlazorTemplate.Core.Models;
+namespace MauiBlazorTemplate.Core.SqlLiteModels;
 
 [Table("Student")]
 public class Student : BaseSqliteModel

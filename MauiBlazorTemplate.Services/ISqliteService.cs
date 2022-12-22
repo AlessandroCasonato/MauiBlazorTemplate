@@ -1,13 +1,11 @@
-﻿using MauiBlazorTemplate.Core.Models;
-
-namespace MauiBlazorTemplate.Services
+﻿namespace MauiBlazorTemplate.Services
 {
     public interface ISqliteService<T>
     {
-        Task<List<T>> GetAllStudent();
-        Task<T> GetStudentById(int id);
-        Task<int> AddStudent(T item);
-        Task<int> UpdateStudent(T item);
-        Task<int> DeleteStudent(T item);
+        Task<List<T>> GetAllItems();
+        Task<T> GetItemById(int id);
+        Task<int> AddItem(T item);
+        Task<int> UpdateItem(T item);
+        Task<int> DeleteItem(T item);
     }
 }

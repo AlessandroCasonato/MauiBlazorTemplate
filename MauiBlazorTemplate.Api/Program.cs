@@ -1,4 +1,4 @@
-using MauiBlazorTemplate.Core.Models;
+using MauiBlazorTemplate.Core.SqlLiteModels;
 using MauiBlazorTemplate.Services;
 
 var builder = WebApplication.CreateBuilder(args);

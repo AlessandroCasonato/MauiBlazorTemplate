@@ -1,8 +1,8 @@
 ﻿@page "/add_student"
 @page "/update_student/{StudentId:int}"
 
-@using MauiBlazorTemplate.Core.Models;
 @using MauiBlazorTemplate.Services;
+@using MauiBlazorTemplate.Core.SqlLiteModels;
 @inject ISqliteService<Student> StudentSvc
 
 <h3>Add student</h3>
@@ -43,7 +43,7 @@
         base.OnInitialized();
         if (StudentId > 0)
         {
-            var response = await StudentSvc.GetStudentById(StudentId);
+            var response = await StudentSvc.GetItemById(StudentId);
             if (response != null)
             {
                 firstName = response.FirstName;
@@ -57,7 +57,7 @@
     private async void AddStudentRecord()
     {
         int response = -1;
-        var student = new Core.Models.Student()
+        var student = new Core.SqlLiteModels.Student()
             {
                 FirstName = firstName,
                 LastName = lastName,
@@ -66,9 +66,9 @@
                 Id = StudentId
             };
         if (StudentId > 0)
-            response = await StudentSvc.UpdateStudent(student);
+            response = await StudentSvc.UpdateItem(student);
         else
-            response = await StudentSvc.AddStudent(student);
+            response = await StudentSvc.AddItem(student);
 
         if(response > 0)
         {

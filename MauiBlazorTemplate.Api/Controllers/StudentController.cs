@@ -1,4 +1,4 @@
-﻿using MauiBlazorTemplate.Core.Models;
+﻿using MauiBlazorTemplate.Core.SqlLiteModels;
 using MauiBlazorTemplate.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,34 +19,34 @@ namespace MauiBlazorTemplate.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<Student>> GetAll()
         {
-            return await _dbService.GetAllStudent();
+            return await _dbService.GetAllItems();
         }
 
         [HttpGet("{id}")]
         public async Task<Student> GetById(int id)
         {
-            return await _dbService.GetStudentById(id);
+            return await _dbService.GetItemById(id);
         }
 
         // POST api/<StudentController>
         [HttpPost]
         public async Task<int> Post([FromBody] Student student)
         {
-            return await _dbService.AddStudent(student);
+            return await _dbService.AddItem(student);
         }
 
         // PUT api/<StudentController>/5
         [HttpPut("{id}")]
         public async Task<int> Put(int id, [FromBody] Student student)
         {
-            return await _dbService.UpdateStudent(student);
+            return await _dbService.UpdateItem(student);
         }
 
         // DELETE api/<StudentController>/5
         [HttpDelete("{id}")]
         public async Task<int> Delete(Student student)
         {
-            return await _dbService.DeleteStudent(student);
+            return await _dbService.DeleteItem(student);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using MauiBlazorTemplate.Services;
-using MauiBlazorTemplate.Core.Models;
+using MauiBlazorTemplate.Core.SqlLiteModels;
 
 namespace MauiBlazorTemplate.App;
 

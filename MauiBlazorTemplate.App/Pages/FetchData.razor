@@ -1,7 +1,7 @@
 ﻿@page "/fetchdata"
 
-@using MauiBlazorTemplate.Core.Models;
 @using MauiBlazorTemplate.Services;
+@using MauiBlazorTemplate.Core.SqlLiteModels;
 @inject ISqliteService<Student> StudentSvc
 @inject NavigationManager NavManager
 
@@ -51,7 +51,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        students = await StudentSvc.GetAllStudent();
+        students = await StudentSvc.GetAllItems();
     }
 
     private void EditStudent(int studentId)
@@ -61,7 +61,7 @@ else
 
     private async void DeleteStudent(Student student)
     {
-        var response = await StudentSvc.DeleteStudent(student);
+        var response = await StudentSvc.DeleteItem(student);
         if(response > 0)
         {
             await OnInitializedAsync();
